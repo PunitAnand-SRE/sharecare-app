@@ -3,10 +3,12 @@ name: Charity API CI
 on:
   push:
     branches:
-      - main
       - pb
-    paths:
-      - 'user-api/**'
+
+
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
