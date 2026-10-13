@@ -1,110 +1,47 @@
 name: user-api-ci
-
-
-
 on:
-
   push:
-
     branches: [ main ]
-
     paths:
-
       - 'user/**'
-
       - '.github/workflows/user-api-ci.yml'
-
   pull_request:
-
     branches: [ main ]
-
     paths:
-
       - 'user/**'
-
       - '.github/workflows/user-api-ci.yml'
-
-
-
 env:
-
   REGISTRY: sharecareacr.azurecr.io
-
   IMAGE: user-api
-
-
-
 jobs:
-
   build-and-push:
-
     runs-on: ubuntu-latest
-
     steps:
-
       - uses: actions/checkout@v4
-
-
-
       - uses: actions/setup-node@v4
-
         with:
-
           node-version: 22
-
           cache: npm
-
           cache-dependency-path: user/package-lock.json
-
-
-
       - name: Install dependencies
-
         working-directory: user
-
         run: npm ci
-
-
-
       - name: Run unit tests
-
         working-directory: user
-
         run: npm test
-
-
-
       - name: Log in to ACR
-
         if: github.event_name == 'push'
-
         uses: docker/login-action@v3
-
         with:
-
           registry: ${{ env.REGISTRY }}
-
           username: ${{ secrets.ACR_USERNAME }}
-
           password: ${{ secrets.ACR_PASSWORD }}
-
-
-
       - name: Build and push image
-
         if: github.event_name == 'push'
-
         uses: docker/build-push-action@v5
-
         with:
-
           context: user
-
           push: true
-
           tags: |
-
             ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}
-
             ${{ env.REGISTRY }}/${{ env.IMAGE }}:latest
-
