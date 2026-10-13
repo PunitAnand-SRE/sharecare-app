@@ -1,9 +1,7 @@
 name: Charity API CI
 
 on:
-  push:
-    branches:
-      - pb
+
 
   pull_request:
     branches:
