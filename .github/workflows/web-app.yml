@@ -31,7 +31,7 @@ jobs:
         run: |
           docker build \
           -t ${{ secrets.ACR_LOGIN_SERVER }}/web:${{ github.sha }} \
-          ./charity-api
+          ./web
 
       - name: Push Image
         run: |
