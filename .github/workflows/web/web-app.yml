@@ -4,12 +4,11 @@ on:
   push:
     branches:
       - pb
-      - main
 
   pull_request:
     branches:
       - main
-      
+
     paths:
       - 'web/**'
 
