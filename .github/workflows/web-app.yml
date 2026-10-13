@@ -3,7 +3,6 @@ name: Charity API CI
 on:
   push:
     branches:
-      - main
       - pb
     paths:
       - 'web-app/**'
