@@ -35,7 +35,7 @@ jobs:
       - name: Build Image
         run: |
           docker build \
-          -t ${{ secrets.ACR_LOGIN_SERVER }}/media:latest \
+          -t ${{ secrets.ACR_LOGIN_SERVER }}/media-api:latest \
           ./media
 
       - name: Push Image

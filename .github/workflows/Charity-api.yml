@@ -35,7 +35,7 @@ jobs:
       - name: Build Image
         run: |
           docker build \
-          -t ${{ secrets.ACR_LOGIN_SERVER }}/charity:latest \
+          -t ${{ secrets.ACR_LOGIN_SERVER }}/charity-api:latest \
           ./charity
 
       - name: Push Image
