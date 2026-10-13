@@ -4,11 +4,14 @@ on:
   push:
     branches:
       - pb
-
+      - main
 
   pull_request:
     branches:
       - main
+      
+    paths:
+      - 'user-api/**'
 
 jobs:
   build:
