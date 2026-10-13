@@ -35,10 +35,10 @@ jobs:
       - name: Build Image
         run: |
           docker build \
-          -t ${{ secrets.ACR_LOGIN_SERVER }}/charity:${{ github.sha }} \
-          ./charity-api
+          -t ${{ secrets.ACR_LOGIN_SERVER }}/charity:latest \
+          ./charity
 
       - name: Push Image
         run: |
           docker push \
-          ${{ secrets.ACR_LOGIN_SERVER }}/charity:${{ github.sha }}
+          ${{ secrets.ACR_LOGIN_SERVER }}/charity-api:latest

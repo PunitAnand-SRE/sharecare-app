@@ -35,10 +35,10 @@ jobs:
       - name: Build Image
         run: |
           docker build \
-          -t ${{ secrets.ACR_LOGIN_SERVER }}/post:${{ github.sha }} \
-          ./post-api
+          -t ${{ secrets.ACR_LOGIN_SERVER }}/post:latest \
+          ./post
 
       - name: Push Image
         run: |
           docker push \
-          ${{ secrets.ACR_LOGIN_SERVER }}/post:${{ github.sha }}
+          ${{ secrets.ACR_LOGIN_SERVER }}/post-api:latest
