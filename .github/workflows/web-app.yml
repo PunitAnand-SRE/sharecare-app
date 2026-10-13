@@ -5,7 +5,7 @@ on:
     branches:
       - pb
     paths:
-      - 'web-app/**'
+      - 'web/**'
 
 jobs:
   build:

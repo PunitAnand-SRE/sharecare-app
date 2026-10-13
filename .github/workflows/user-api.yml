@@ -11,7 +11,7 @@ on:
       - main
       
     paths:
-      - 'user-api/**'
+      - 'user/**'
 
 jobs:
   build:
