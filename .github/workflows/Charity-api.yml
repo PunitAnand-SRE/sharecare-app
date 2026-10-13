@@ -1,0 +1,44 @@
+name: Charity API CI
+
+on:
+  push:
+    branches:
+      - pb
+
+  pull_request:
+    branches:
+      - main
+      
+    paths:
+      - 'charity/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        run: echo Build charity-api
+
+      - name: Test
+        run: echo Run tests
+
+      - name: Login to ACR
+        run: |
+          echo "${{ secrets.ACR_PASSWORD }}" |
+          docker login ${{ secrets.ACR_LOGIN_SERVER }} \
+          -u ${{ secrets.ACR_USERNAME }} \
+          --password-stdin
+
+      - name: Build Image
+        run: |
+          docker build \
+          -t ${{ secrets.ACR_LOGIN_SERVER }}/charity:${{ github.sha }} \
+          ./charity-api
+
+      - name: Push Image
+        run: |
+          docker push \
+          ${{ secrets.ACR_LOGIN_SERVER }}/charity:${{ github.sha }}
