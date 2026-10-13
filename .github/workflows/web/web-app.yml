@@ -11,7 +11,7 @@ on:
       - main
       
     paths:
-      - 'user/**'
+      - 'web/**'
 
 jobs:
   build:
@@ -36,10 +36,10 @@ jobs:
       - name: Build Image
         run: |
           docker build \
-          -t ${{ secrets.ACR_LOGIN_SERVER }}/user:${{ github.sha }} \
-          ./user
+          -t ${{ secrets.ACR_LOGIN_SERVER }}/web:${{ github.sha }} \
+          ./web
 
       - name: Push Image
         run: |
           docker push \
-          ${{ secrets.ACR_LOGIN_SERVER }}/user:${{ github.sha }}
+          ${{ secrets.ACR_LOGIN_SERVER }}/web:${{ github.sha }}
