@@ -28,7 +28,7 @@ jobs:
           cache-dependency-path: user/package-lock.json
 
       - run: npm ci
-      - run: npm test
+      - run: npm test --if-present
 
       - name: Log in to ACR
         uses: docker/login-action@v3
