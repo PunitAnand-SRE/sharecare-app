@@ -1,9 +1,6 @@
 name: Charity API CI
 
 on:
-
-
-on:
   push:
     branches:
       - main  # Triggers when code is pushed or merged into main
