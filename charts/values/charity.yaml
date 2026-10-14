@@ -1,0 +1,16 @@
+fullnameOverride: charity-api-helm
+image:
+  repository: sharecareacr.azurecr.io/charity-api
+  tag: "latest"
+containerPort: 3000
+database:
+  name: postgres
+extraEnv:
+  - name: PGSSLMODE
+    value: "require"
+  - name: DATABASE_SSL
+    value: "true"
+  - name: NODE_TLS_REJECT_UNAUTHORIZED
+    value: "0"
+ingress:
+  enabled: false
