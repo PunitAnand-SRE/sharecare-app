@@ -38,3 +38,4 @@ jobs:
         run: |
           docker push \
           ${{ secrets.ACR_LOGIN_SERVER }}/media-api:latest
+    
