@@ -37,4 +37,4 @@ jobs:
           helm upgrade --install user-api \
             ./charts/chart-sharecare \
             --set image.repository=${{ secrets.ACR_LOGIN_SERVER }}/user-api \
-            --set image.tag=latest -f charts/values/user.yaml
+            --set image.tag=latest -f charts/values/user.yaml  --namespace sharecare-prod  --create-namespace 
