@@ -3,6 +3,7 @@ name: Charity API CI
 on:
   push:
     branches:
+      - pb
       - main  # Triggers when code is pushed or merged into main
       
     paths:
@@ -13,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      - uses: actions/checkout@v4
 
       - name: Azure Login action
         uses: azure/login@v2
@@ -34,4 +37,4 @@ jobs:
           helm upgrade --install user-api \
             ./charts/chart-sharecare \
             --set image.repository=${{ secrets.ACR_LOGIN_SERVER }}/user-api \
-            --set image.tag=latest
+            --set image.tag=latest -f charts/values/user.yaml  --namespace sharecare-prod  --create-namespace 
