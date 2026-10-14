@@ -1,0 +1,40 @@
+name: Charity API CI
+
+on:
+  push:
+    branches:
+      - pb
+      - main  # Triggers when code is pushed or merged into main
+      
+    paths:
+      - 'media/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Azure Login action
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true
+
+      - name: Set AKS Context
+        uses: azure/aks-set-context@v4
+        with:
+          resource-group: ${{ secrets.AKS_RESOURCE_GROUP }}
+          cluster-name: ${{ secrets.AKS_CLUSTER_NAME }}
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+
+      - name: Deploy media API
+        run: |
+          helm upgrade --install media-api \
+            ./charts/chart-sharecare \
+            --set image.repository=${{ secrets.ACR_LOGIN_SERVER }}/media-api \
+            --set image.tag=latest -f charts/values/media.yaml  --namespace sharecare-prod 
