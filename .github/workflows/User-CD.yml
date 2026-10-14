@@ -33,5 +33,5 @@ jobs:
         run: |
           helm upgrade --install user-api \
             ./charts/chart-sharecare \
-            --set image.repository=${{ secrets.ACR_LOGIN_SERVER }}/user \
+            --set image.repository=${{ secrets.ACR_LOGIN_SERVER }}/user-api \
             --set image.tag=latest
