@@ -14,3 +14,10 @@ variable "postgres_password" {
   type      = string
   sensitive = true
 }
+variable "releases" {
+  type = map(object({
+    database_name = string
+    values_file   = string
+  }))
+}
+variable "chart_path" { type = string }
