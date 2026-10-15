@@ -21,3 +21,12 @@ variable "releases" {
   }))
 }
 variable "chart_path" { type = string }
+
+variable "acr_name" {
+  type    = string
+  default = "sharecareacr"
+}
+variable "acr_resource_group" {
+  type    = string
+  default = "sharecare-rg"
+}
