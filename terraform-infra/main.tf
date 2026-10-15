@@ -75,3 +75,64 @@ resource "kubernetes_namespace_v1" "sharecare" {
     name = "sharecare"
   }
 }
+resource "helm_release" "this" {
+  depends_on = [
+  null_resource.restore_db
+]
+  for_each = var.releases
+ 
+  name             = each.key
+  chart            = var.chart_path
+  namespace        = "sharecare"
+  create_namespace = true
+  wait             = true
+  timeout          = 600
+  values           = [file(each.value.values_file)]
+}
+resource "azurerm_postgresql_flexible_server_database" "userdb" {
+  name      = "userdb"
+  server_id = azurerm_postgresql_flexible_server.postgres.id
+  charset   = "UTF8"
+  collation = "en_US.utf8"
+}
+
+resource "azurerm_postgresql_flexible_server_database" "charitydb" {
+  name      = "charitydb"
+  server_id = azurerm_postgresql_flexible_server.postgres.id
+  charset   = "UTF8"
+  collation = "en_US.utf8"
+}
+
+resource "azurerm_postgresql_flexible_server_database" "mediadb" {
+  name      = "mediadb"
+  server_id = azurerm_postgresql_flexible_server.postgres.id
+  charset   = "UTF8"
+  collation = "en_US.utf8"
+}
+
+resource "azurerm_postgresql_flexible_server_database" "postdb" {
+  name      = "postdb"
+  server_id = azurerm_postgresql_flexible_server.postgres.id
+  charset   = "UTF8"
+  collation = "en_US.utf8"
+}
+resource "null_resource" "restore_db" {
+
+  depends_on = [
+    azurerm_postgresql_flexible_server_database.userdb,
+    azurerm_postgresql_flexible_server_database.charitydb,
+    azurerm_postgresql_flexible_server_database.mediadb,
+    azurerm_postgresql_flexible_server_database.postdb
+  ]
+
+  provisioner "local-exec" {
+
+    command = "powershell -ExecutionPolicy Bypass -File scripts/restore-db.ps1"
+
+    environment = {
+      DB_HOST     = azurerm_postgresql_flexible_server.postgres.fqdn
+      DB_USER     = var.postgres_user
+      DB_PASSWORD = var.postgres_password
+    }
+  }
+}
