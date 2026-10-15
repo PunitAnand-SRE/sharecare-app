@@ -1,13 +1,13 @@
 fullnameOverride: post-api-helm
 image:
-  repository: sharecareacr2026.azurecr.io/post-api
-  tag: v1
+  repository: sharecareacr.azurecr.io/post-api
+  tag: "latest"
 containerPort: 3000
 database:
-  name: post_db
+  name: post
 extraEnv:
   - name: MEDIA_API_URL
-    value: "http://media-api-service"
+    value: "http://media-api-helm"
   - name: PGSSLMODE
     value: "require"
   - name: DATABASE_SSL

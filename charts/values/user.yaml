@@ -1,10 +1,10 @@
 fullnameOverride: user-api-helm
 image:
-  repository: sharecareacr2026.azurecr.io/user-api
-  tag: v1
+  repository: sharecareacr.azurecr.io/user-api
+  tag: "latest"
 containerPort: 3000
 database:
-  name: user_db
+  name: users
 extraEnv:
   - name: PGSSLMODE
     value: "require"

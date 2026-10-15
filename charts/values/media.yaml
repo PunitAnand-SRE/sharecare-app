@@ -1,10 +1,10 @@
 fullnameOverride: media-api-helm
 image:
-  repository: sharecareacr2026.azurecr.io/media-api
-  tag: v1
+  repository: sharecareacr.azurecr.io/media-api
+  tag: "latest"
 containerPort: 3000
 database:
-  name: media_db
+  name: media
 extraEnv:
   - name: PGSSLMODE
     value: "require"
